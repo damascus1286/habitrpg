@@ -66,7 +66,6 @@ score = (model, user, taskId, direction, done) ->
   misc.batchTxn model, (uObj, paths) ->
     tObj = uObj.tasks[taskId]
     delta = algos.score(uObj, tObj, direction, {paths})
-  #, {user, done}
   , {user, done}
   delta
 

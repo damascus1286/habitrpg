@@ -67,7 +67,7 @@ describe 'API', ->
         cb(res.body)
 
   before (done) ->
-    server = require '../src/server'
+    server = require '../lib/server'
     server.listen '1337', '0.0.0.0', ->
       store = server.habitStore
       #store.flush()
@@ -121,13 +121,14 @@ describe 'API', ->
         .end (res) ->
           expect(res.body.err).to.be undefined
           expect(res.statusCode).to.be 200
-          expect(res.body.id).not.to.be.empty()
+          expect(res.body.id).to.be.ok()
           self = _.clone(currentUser)
           delete self.apiToken
           self.stats.toNextLevel = 150
           self.stats.maxHealth = 50
 
           expectUserEqual(res.body, self)
+          throw("implement user-equal compare")
           done()
 
     it 'GET /api/v1/user/task/:id', (done) ->
